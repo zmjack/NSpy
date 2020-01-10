@@ -27,8 +27,36 @@ namespace NSpy.Test
             Assert.Equal(0x03070f, color.RGB);
             Assert.Equal(4, Marshal.SizeOf<Color>());
 
-            Assert.Equal(new[] { "0F 07 03 00" }, MemorySpy.GetHexString(color));
-            Assert.Equal(new[] { "00001111 00000111 00000011 00000000" }, MemorySpy.GetBinaryString(color));
+            Assert.Equal("0f 07 03 00", MemorySpy.GetHexString(color));
+            Assert.Equal("00001111 00000111 00000011 00000000", MemorySpy.GetBinaryString(color));
+        }
+
+        [Fact]
+        public void GetSingleStructureTest()
+        {
+            const float value = 3.14F;
+            var structure = new SingleStrcuture(MemorySpy.GetBytes(value));
+            Assert.Equal(0, structure.Sign);
+            Assert.Equal(128, structure.Exponent);
+            Assert.Equal(4781507, structure.Mantissa);
+
+            Assert.Equal(3.14F, structure.ToSingle());
+            Assert.Equal(1078523331, structure.ToInt32());
+            Assert.Equal(1078523331U, structure.ToUInt32());
+        }
+
+        [Fact]
+        public void GetDoubleStructureTest()
+        {
+            const double value = 3.14D;
+            var structure = new DoubleStrcuture(MemorySpy.GetBytes(value));
+            Assert.Equal(0, structure.Sign);
+            Assert.Equal(1024, structure.Exponent);
+            Assert.Equal(2567051787601183, structure.Mantissa);
+
+            Assert.Equal(3.14D, structure.ToDouble());
+            Assert.Equal(4614253070214989087L, structure.ToInt64());
+            Assert.Equal(4614253070214989087UL, structure.ToUInt64());
         }
 
     }
