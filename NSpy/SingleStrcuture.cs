@@ -34,5 +34,27 @@ namespace NSpy
         public int ToInt32() => BitConverter.ToInt32(GetBytes(), 0);
         public uint ToUInt32() => BitConverter.ToUInt32(GetBytes(), 0);
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DoubleStrcuture)) return false;
+
+            var _obj = (DoubleStrcuture)obj;
+            return Sign == _obj.Sign && Exponent == _obj.Exponent && Mantissa == _obj.Mantissa;
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
+        }
+
+        public static bool operator ==(SingleStrcuture left, SingleStrcuture right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(SingleStrcuture left, SingleStrcuture right)
+        {
+            return !(left == right);
+        }
     }
 }

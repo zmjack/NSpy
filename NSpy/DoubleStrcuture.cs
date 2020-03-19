@@ -40,5 +40,27 @@ namespace NSpy
         public long ToInt64() => BitConverter.ToInt64(GetBytes(), 0);
         public ulong ToUInt64() => BitConverter.ToUInt64(GetBytes(), 0);
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DoubleStrcuture)) return false;
+
+            var _obj = (DoubleStrcuture)obj;
+            return Sign == _obj.Sign && Exponent == _obj.Exponent && Mantissa == _obj.Mantissa;
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
+        }
+
+        public static bool operator ==(DoubleStrcuture left, DoubleStrcuture right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(DoubleStrcuture left, DoubleStrcuture right)
+        {
+            return !(left == right);
+        }
     }
 }
