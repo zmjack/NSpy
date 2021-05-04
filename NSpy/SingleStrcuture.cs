@@ -6,7 +6,7 @@ namespace NSpy
     {
         public SingleStrcuture(byte[] bytes)
         {
-            Sign = bytes[3] & 0b10000000;
+            Sign = bytes[3] & 0b10000000 >> 7;
             Exponent = ((bytes[3] & 0b01111111) << 1) | bytes[2] >> 7;
             Mantissa = ((bytes[2] & 0b01111111) << 16) | bytes[1] << 8 | bytes[0];
         }

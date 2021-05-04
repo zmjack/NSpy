@@ -6,7 +6,7 @@ namespace NSpy
     {
         public DoubleStrcuture(byte[] bytes)
         {
-            Sign = bytes[7] & 0b10000000;
+            Sign = bytes[7] & 0b10000000 >> 7;
             Exponent = ((bytes[7] & 0b01111111) << 4) | ((bytes[6] & 0b11110000) >> 4);
             Mantissa = (((long)bytes[6] & 0b01111111) << 48)
                 | (long)bytes[5] << 40 | (long)bytes[4] << 32 | (long)bytes[3] << 24

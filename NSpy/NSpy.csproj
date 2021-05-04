@@ -7,7 +7,7 @@
     <Authors>zmjack</Authors>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Copyright>Copyright © dawnx.net 2019-2020</Copyright>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <PackageProjectUrl>https://github.com/zmjack/NSpy.git</PackageProjectUrl>
     <RepositoryUrl>https://github.com/zmjack/NSpy.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
