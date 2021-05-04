@@ -7,7 +7,7 @@ namespace NSpy
         public DoubleStrcuture(byte[] bytes)
         {
             Sign = bytes[7] & 0b10000000;
-            Exponent = ((bytes[7] & 0b01111111) << 4) | ((bytes[6] & 0b10000000) >> 4);
+            Exponent = ((bytes[7] & 0b01111111) << 4) | ((bytes[6] & 0b11110000) >> 4);
             Mantissa = (((long)bytes[6] & 0b01111111) << 48)
                 | (long)bytes[5] << 40 | (long)bytes[4] << 32 | (long)bytes[3] << 24
                 | (long)bytes[2] << 16 | (long)bytes[1] << 8 | bytes[0];
@@ -17,8 +17,8 @@ namespace NSpy
         public int Exponent;
         public long Mantissa;
         public bool IsZero => Exponent == 0 && Mantissa == 0;
-        public bool IsNaN => Exponent == 0b11111111 && Mantissa > 0;
-        public bool IsInfinity => Exponent == 0b111_11111111 && Mantissa == 0;
+        public bool IsNaN => Exponent == 0b111_1111_1111 && Mantissa > 0;
+        public bool IsInfinity => Exponent == 0b111_1111_1111 && Mantissa == 0;
 
         public byte[] GetBytes()
         {

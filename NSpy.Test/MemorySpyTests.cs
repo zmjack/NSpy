@@ -59,5 +59,13 @@ namespace NSpy.Test
             Assert.Equal(4614253070214989087UL, structure.ToUInt64());
         }
 
+        [Fact]
+        public void NaNTest()
+        {
+            double a = 1;
+            var structure = new DoubleStrcuture(MemorySpy.GetBytes(a / 0));
+            Assert.True(structure.IsNaN);
+        }
+
     }
 }

@@ -15,8 +15,8 @@ namespace NSpy
         public int Exponent;
         public int Mantissa;
         public bool IsZero => Exponent == 0 && Mantissa == 0;
-        public bool IsNaN => Exponent == 0xff && Mantissa > 0;
-        public bool IsInfinity => Exponent == 0xff && Mantissa == 0;
+        public bool IsNaN => Exponent == 0b1111_1111 && Mantissa > 0;
+        public bool IsInfinity => Exponent == 0b1111_1111 && Mantissa == 0;
 
         public byte[] GetBytes()
         {
