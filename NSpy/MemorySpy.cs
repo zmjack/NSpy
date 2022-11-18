@@ -52,8 +52,7 @@ namespace NSpy
             if (!bytes.Any()) return string.Empty;
 
             var sb = new StringBuilder();
-            sb.AppendLine(bytes.Select(x => convert(x)).Join(" "));
-            sb.Length -= Environment.NewLine.Length;
+            sb.Append(bytes.Select(x => convert(x)).Join(" "));
             return sb.ToString();
         }
 

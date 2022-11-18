@@ -34,37 +34,58 @@ namespace NSpy.Test
         [Fact]
         public void GetSingleStructureTest()
         {
-            const float value = 3.14F;
-            var structure = new SingleStrcuture(MemorySpy.GetBytes(value));
+            const float value = 3.14f;
+            var structure = new SingleStructure(MemorySpy.GetBytes(value));
             Assert.Equal(0, structure.Sign);
             Assert.Equal(128, structure.Exponent);
             Assert.Equal(4781507, structure.Mantissa);
 
-            Assert.Equal(3.14F, structure.ToSingle());
-            Assert.Equal(1078523331, structure.ToInt32());
-            Assert.Equal(1078523331U, structure.ToUInt32());
+            Assert.Equal(3.14f, structure);
         }
 
         [Fact]
         public void GetDoubleStructureTest()
         {
-            const double value = 3.14D;
-            var structure = new DoubleStrcuture(MemorySpy.GetBytes(value));
+            const double value = 3.14d;
+            var structure = new DoubleStructure(MemorySpy.GetBytes(value));
             Assert.Equal(0, structure.Sign);
             Assert.Equal(1024, structure.Exponent);
             Assert.Equal(2567051787601183, structure.Mantissa);
 
-            Assert.Equal(3.14D, structure.ToDouble());
-            Assert.Equal(4614253070214989087L, structure.ToInt64());
-            Assert.Equal(4614253070214989087UL, structure.ToUInt64());
+            Assert.Equal(3.14d, structure);
+        }
+
+        [Fact]
+        public void ZeroTest()
+        {
+            var structure = new DoubleStructure(MemorySpy.GetBytes(0d));
+            Assert.True(structure.IsZero);
         }
 
         [Fact]
         public void NaNTest()
         {
-            double a = 1;
-            var structure = new DoubleStrcuture(MemorySpy.GetBytes(a / 0));
+            double a = 0;
+            var structure = new DoubleStructure(MemorySpy.GetBytes(a / 0));
             Assert.True(structure.IsNaN);
+        }
+
+        [Fact]
+        public void PositiveInfinityTest()
+        {
+            double a = 1;
+            var structure = new DoubleStructure(MemorySpy.GetBytes(a / 0));
+            Assert.Equal(0, structure.Sign);
+            Assert.True(structure.IsInfinity);
+        }
+
+        [Fact]
+        public void NegativeInfinityTest()
+        {
+            double a = -1;
+            var structure = new DoubleStructure(MemorySpy.GetBytes(a / 0));
+            Assert.Equal(1, structure.Sign);
+            Assert.True(structure.IsInfinity);
         }
 
     }
